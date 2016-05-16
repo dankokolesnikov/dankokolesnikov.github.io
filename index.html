@@ -2,15 +2,20 @@
 <html>
 <head>
   <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style type="text/css">
     body{
       height: 2000px;
       margin:0px;
     }
     .bar{
+      position: fixed;
+      top:200px;
       width:600px;
       height: 50px;
       margin: auto;
+      left:0;
+      right: 0;
       background-color:#333333;
     }
     .placeholder{
@@ -24,7 +29,7 @@
     <div class="placeholder" > </div>
     <div class="bar" ></div>
     <div class="placeholder"></div>
-    <div class="bar" style="background-color:#999999"></div>
+    <div class="bar" style="background-color:#999999; top:450px"></div>
   </div>
 
   <a href="https://github.com/ltebean/sticky-header">
@@ -81,10 +86,22 @@ var fBh = firstBar.offsetHeight;
 var sPh = secondPlace.offsetHeight;
 var sBh = secondBar.offsetHeight;
 
+function stricky_two(){
+  var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+  firstBar.style.top = 200-scrolled+"px";
+  secondBar.style.top = 450 - scrolled+"px";
+  if (scrolled>=200) {
+    firstBar.style.top = 0;
+  };
+  if (scrolled>=450){
+    secondBar.style.top = 0;
+  }
+}
 
 
 window.onscroll = function () { 
-  stricky();
+  stricky_two();
+  //stricky();
 }
   </script>
 </body>
