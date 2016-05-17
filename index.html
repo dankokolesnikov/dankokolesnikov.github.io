@@ -109,7 +109,7 @@ function stricky_two(){
 
 
 window.onscroll = function () { 
-  document.querySelector('.nav').innerHTML="размер экрана: ширина "+screen.width+", высота:"+screen.height;
+  document.querySelector('.nav').innerHTML="размер экрана: ширина "+document.body.clientWidth+", высота:"+screen.height;
   //firstBar.style.margin="auto";
   stricky_two();
   //stricky();
