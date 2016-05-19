@@ -67,8 +67,11 @@ function stricky_two(){
   if (scrolled>=450){
     secondBar.style.top = 0;
   }
+}
+window.onresize = function(){
   if (window.innerWidth < 650){
-    alert("HOLA")
+    document.querySelector('.nav').style.width = 600 - (650 - window.innerWidth)+"px";
+    document.querySelectorAll('.nav')[1].style.width = 600 - (650 - window.innerWidth)+"px";
   }
 }
 
