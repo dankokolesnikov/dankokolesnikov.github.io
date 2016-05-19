@@ -11,16 +11,13 @@
       
     }
     .bar{
-      width:100%;
-    }
-    .navigation{
-      width: 600px;
+      width:600px;
       height: 50px;
       margin: auto;
       background-color:#333333;
     }
     .placeholder{
-      background-color: #bbb;
+      background-color: #333;
       height: 200px;
       width: 100%;
     }
@@ -29,13 +26,9 @@
 <body>
   <div class="container">
     <div class="placeholder" > </div>
-    <div class="bar" >
-      <div class="navigation"></div>
-    </div>
+    <div class="bar" ></div>
     <div class="placeholder"></div>
-    <div class="bar" >
-      <div class="navigation" style="background-color:#999999"></div>
-    </div>
+    <div class="bar" style="background-color:#999999"></div>
   </div>
 
   <a href="https://github.com/ltebean/sticky-header">
@@ -88,7 +81,10 @@ var fBh = firstBar.offsetHeight;
 var sPh = secondPlace.offsetHeight;
 var sBh = secondBar.offsetHeight;
 
-
+window.onresize = function  () {
+  firstBar.style.margin = "auto";
+  secondBar.style.margin = "auto";
+}
 
 window.onscroll = function () { 
   stricky();
