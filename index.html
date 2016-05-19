@@ -17,7 +17,7 @@
       background-color:#333333;
     }
     .placeholder{
-      background-color: #333;
+      background-color: #aaa;
       height: 200px;
       width: 100%;
     }
@@ -82,7 +82,7 @@ var sPh = secondPlace.offsetHeight;
 var sBh = secondBar.offsetHeight;
 
 window.onresize = function  () {
-  firstBar.style.margin = "auto";
+  firstBar.style.marginLeft = (window.innerWidth -600)/2;
   secondBar.style.margin = "auto";
 }
 
