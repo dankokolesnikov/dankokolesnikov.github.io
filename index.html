@@ -43,7 +43,7 @@ function stricky () {
       if (scrolled>=fPh) {
       firstBar.style.position="fixed";
       firstBar.style.top=0;
-      firstBar.style.marginLeft = (window.innerWidth -600)/2 +"px";
+      firstBar.style.marginLeft = (document.documentElement.clientWidth -600)/2 +"px";
       
       firstPlace.style.height=fPh+fBh+"px";
     };
