@@ -43,8 +43,8 @@ function stricky () {
       if (scrolled>=fPh) {
       firstBar.style.position="fixed";
       firstBar.style.top=0;
-      firstBar.style.left=0;
-      firstBar.style.right=0;
+      firstBar.style.marginLeft = (window.innerWidth -600)/2 +"px";
+      
       firstPlace.style.height=fPh+fBh+"px";
     };
     if (scrolled<fPh) {
@@ -82,7 +82,7 @@ var sPh = secondPlace.offsetHeight;
 var sBh = secondBar.offsetHeight;
 
 window.onresize = function  () {
-  firstBar.style.marginLeft = (window.innerWidth -600)/2 +"px";
+  
   secondBar.style.margin = "auto";
 }
 
