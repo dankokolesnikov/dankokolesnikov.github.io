@@ -95,7 +95,7 @@ var sBh = secondBar.offsetHeight;
 
 function stricky_two(){
   var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-  
+  document.querySelector('.nav').innerHTML=scrolled;
   if (scrolled>=200) {
     firstBar.style.position ='fixed';
     firstBar.style.top = 0;
