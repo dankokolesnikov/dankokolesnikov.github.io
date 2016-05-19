@@ -9,6 +9,9 @@
       margin:0px;
       color:green;
     }
+    .container{
+      
+    }
     .bar{
       width: 100%;
     }
@@ -43,6 +46,7 @@
   
   <script type="text/javascript">
 function stricky () {
+
   //Отслеживаем прокрутку сверху
   var scrolled = window.pageYOffset || document.documentElement.scrollTop;
   //Ели прокрутка больше размера первого плэйсхордера - прижимаем первый хедер к "потолку"
@@ -78,6 +82,7 @@ function stricky () {
     secondPlace.style.height=sPh+"px";
   };
 }
+
 var firstBar = document.querySelector('.bar');
 var firstPlace = document.querySelector('.placeholder');
 var secondBar = document.querySelectorAll('.bar')[1];
