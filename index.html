@@ -6,6 +6,7 @@
     body{
       height: 2000px;
       margin:0px;
+      color:white;
     }
     .container{
       
@@ -81,7 +82,7 @@ var sPh = secondPlace.offsetHeight;
 var sBh = secondBar.offsetHeight;
 
 window.onresize = function () {
-  alert(window.innerWidth)
+  document.querySelector('.bar').innerHTML="размер экрана: ширина "+window.innerWidth
   firstBar.style.marginLeft = (Math.min(window.innerWidth,document.documentElement.clientWidth) - 600)/2+"px";
 }
 
