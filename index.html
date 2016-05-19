@@ -42,6 +42,42 @@
   </a>
   
   <script type="text/javascript">
+function stricky () {
+  //Отслеживаем прокрутку сверху
+  var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+  //Ели прокрутка больше размера первого плэйсхордера - прижимаем первый хедер к "потолку"
+  if (scrolled>=fPh) {
+    firstBar.style.position="fixed";
+    firstBar.style.top=0;
+    firstBar.style.left=0;
+    firstBar.style.right=0;
+    firstPlace.style.height=fPh+fBh+"px";
+  };
+  //Если прокрутка мешьше размера первого плэйсхолдера - возвращяем исходные стили для хедера
+  if (scrolled<fPh) {
+    firstBar.style.position="relative";
+    firstBar.style.margin="auto";
+    firstPlace.style.height=fPh+"px";
+  };
+  //При достижении прокрутки в размер первого и второго плэйсхолдера - вытесняем первый хедер вторым
+  if (scrolled>=(fPh+sPh)) {
+    firstBar.style.top=fPh+sPh-scrolled+"px";
+  };
+  //Аналогично коду, приведеному выше
+  if (scrolled>=(fPh+sPh+fBh)) {
+    firstBar.style.position="absolute"
+    secondBar.style.position="fixed";
+    secondBar.style.top=0;
+    secondBar.style.left=0;
+    secondBar.style.right=0;
+    secondPlace.style.height=sBh+sPh+"px";
+  };
+  if (scrolled<(fPh+fBh+sPh)) {
+    secondBar.style.position="relative";
+    secondBar.style.margin="auto";
+    secondPlace.style.height=sPh+"px";
+  };
+}
 var firstBar = document.querySelector('.bar');
 var firstPlace = document.querySelector('.placeholder');
 var secondBar = document.querySelectorAll('.bar')[1];
@@ -88,8 +124,8 @@ window.onresize = function(){
 window.onscroll = function () { 
   document.querySelector('.nav').innerHTML="размер экрана: ширина "+window.innerWidth+", высота:"+document.body.clientHeight;
   //firstBar.style.margin="auto";
-  stricky_two();
-  //stricky();
+  //stricky_two();
+  stricky();
 }
   </script>
 </body>
