@@ -43,7 +43,8 @@ function stricky () {
       if (scrolled>=fPh) {
       firstBar.style.position="fixed";
       firstBar.style.top=0;
-      firstBar.style.marginLeft = (document.documentElement.clientWidth+ -600)/2 +"px";
+      firstBar.style.left=0;
+      firstBar.style.right=0;
       firstPlace.style.height=fPh+fBh+"px";
     };
     if (scrolled<fPh) {
@@ -79,7 +80,10 @@ var fBh = firstBar.offsetHeight;
 var sPh = secondPlace.offsetHeight;
 var sBh = secondBar.offsetHeight;
 
-
+window.onresize = function () {
+  //alert(window.innerWidth)
+  firstBar.style.marginLeft = (Math.min(window.innerWidth,document.documentElement.clientWidth) - 600)/2+"px";
+}
 
 window.onscroll = function () { 
   stricky();
