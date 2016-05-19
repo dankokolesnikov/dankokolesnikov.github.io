@@ -39,12 +39,11 @@
 
 function stricky () {
       var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-    
+      //alert(document.body.scrollWidth+" "+document.documentElement.clientWidth+" "+window.innerWidth);
       if (scrolled>=fPh) {
       firstBar.style.position="fixed";
       firstBar.style.top=0;
-      firstBar.style.marginLeft = (document.documentElement.clientWidth -600)/2 +"px";
-      
+      firstBar.style.marginLeft = (document.documentElement.clientWidth+ -600)/2 +"px";
       firstPlace.style.height=fPh+fBh+"px";
     };
     if (scrolled<fPh) {
@@ -59,8 +58,7 @@ function stricky () {
       firstBar.style.position="absolute"
       secondBar.style.position="fixed";
       secondBar.style.top=0;
-      secondBar.style.left=0;
-      secondBar.style.right=0;
+      secondBar.style.marginLeft = (document.documentElement.clientWidth+ -600)/2 +"px";
       secondPlace.style.height=sBh+sPh+"px";
     };
     if (scrolled<(fPh+fBh+sPh)) {
@@ -81,10 +79,7 @@ var fBh = firstBar.offsetHeight;
 var sPh = secondPlace.offsetHeight;
 var sBh = secondBar.offsetHeight;
 
-window.onresize = function  () {
-  
-  secondBar.style.margin = "auto";
-}
+
 
 window.onscroll = function () { 
   stricky();
