@@ -1,94 +1,271 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <title></title>
-  <style type="text/css">
-    body{
-      height: 2000px;
-      margin:0px;
-      color:white;
-    }
-    .container{
-      
-    }
-    .bar{
-      width:600px;
-      height: 50px;
-      margin: auto;
-      background-color:#333333;
-    }
-    .placeholder{
-      background-color: #ccc;
-      height: 200px;
-      width: 100%;
-    }
-  </style>
+	<meta charset="UTF-8">
+	<title>T3</title>
+	<script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
+	<script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
+	<style type="text/css">
+		canvas{
+			border: 1px solid;
+			margin-left: 50px;
+			background-color: #3CAA3C;
+		}
+		body{
+			color: black;
+		}
+
+	</style>
 </head>
-<body>
-  <div class="container">
-    <div class="placeholder" > </div>
-    <div class="bar" ></div>
-    <div class="placeholder"></div>
-    <div class="bar" style="background-color:#999999"></div>
-  </div>
+<body onLoad="init();">
 
-  <a href="https://github.com/ltebean/sticky-header">
-    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"/>
-  </a>
-  
-  <script type="text/javascript">
-
-function stricky () {
-      var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-      //alert(document.body.scrollWidth+" "+document.documentElement.clientWidth+" "+window.innerWidth);
-      if (scrolled>=fPh) {
-      firstBar.style.position="fixed";
-      firstBar.style.top=0;
-      firstBar.style.left=0;
-      firstBar.style.right=0;
-      firstPlace.style.height=fPh+fBh+"px";
-    };
-    if (scrolled<fPh) {
-      firstBar.style.position="relative";
-      firstBar.style.margin="auto";
-      firstPlace.style.height=fPh+"px";
-    };
-    if (scrolled>=(fPh+sPh)) {
-      firstBar.style.top=fPh+sPh-scrolled+"px";
-    };
-    if (scrolled>=(fPh+sPh+fBh)) {
-      firstBar.style.position="absolute"
-      secondBar.style.position="fixed";
-      secondBar.style.top=0;
-      secondBar.style.marginLeft = (document.documentElement.clientWidth+ -600)/2 +"px";
-      secondPlace.style.height=sBh+sPh+"px";
-    };
-    if (scrolled<(fPh+fBh+sPh)) {
-      secondBar.style.position="relative";
-      secondBar.style.margin="auto";
-      secondPlace.style.height=sPh+"px";
-    };
-    }
+	<canvas id="c" width="700px" height="500px"></canvas>
 
 
-var firstBar = document.querySelector('.bar');
-var firstPlace = document.querySelector('.placeholder');
-var secondBar = document.querySelectorAll('.bar')[1];
-var secondPlace = document.querySelectorAll('.placeholder')[1];
 
-var fPh = firstPlace.offsetHeight;
-var fBh = firstBar.offsetHeight;
-var sPh = secondPlace.offsetHeight;
-var sBh = secondBar.offsetHeight;
+	<script>
+	var finishFirst;
+	var finishSecond;
+	var globalkey = 0;
+	var superglobalkey1=0;
+	var superglobalkey2 =0;
+	first_side = [0,0,0,0,0];
+	second_side = [0,0,0,0,0];
+	fC = {X:[50,150,250,350,450],y:400,card:[]	};
+	sC = {X:[50,150,250,350,450],y:50,card:[]	}
+	blah = {};
+	card = {};
+	card.typer = [];
+	card.statuss = [];
+	card.move = []
+	var animation;
+	var imgCard = new Image();
+	var canvas = document.getElementById('c')
 
-window.onresize = function () {
-  document.querySelector('.bar').innerHTML="размер экрана: ширина "+window.innerWidth
-  firstBar.style.marginLeft = (Math.min(window.innerWidth,document.documentElement.clientWidth) - 600)/2+"px";
-}
 
-window.onscroll = function () { 
-  stricky();
-}
-  </script>
+	function getRandomcard() {
+		var rand = Math.floor(Math.random()*(card.statuss.length));
+		var set=card.statuss[rand];
+ 		card.statuss.splice(rand,1);
+ 		return set;		
+	}
+
+	
+		function init () {
+			var stage = new createjs.Stage("c");
+			var butt1 = new createjs.Shape();
+				butt1.graphics.beginFill("Grey").drawRoundRect(0,0,100,25,5);
+				butt1.x = 500;
+				butt1.y = 50;
+			var text1 = new createjs.Text("Deal", "20px Arial", "White");
+ 				text1.x = 525;
+ 				text1.y = 52;
+			var butt2 = new createjs.Shape();
+				butt2.graphics.beginFill("Grey").drawRoundRect(0,0,100,25,5);
+				butt2.x = 500;
+				butt2.y = 400;
+			var text2 = new createjs.Text("To trash", "20px Arial", "White");
+				text2.x = 510;
+				text2.y = 402;
+			var butt3 = new createjs.Shape();
+				butt3.graphics.beginFill("Grey").drawRoundRect(0,0,100,25,5);
+				butt3.x = 500;
+				butt3.y = 100;
+			var text3 = text2.clone();
+				text3.y = 102;
+			var butt4 = new createjs.Shape();
+				butt4.graphics.beginFill("Grey").drawRoundRect(0,0,100,25,5);
+				butt4.x = 500;
+				butt4.y = 350;
+			var text4 = new createjs.Text("Reset", "20px Arial", "White");
+				text4.x = 510;
+				text4.y = 352;
+			stage.addChild(butt1);
+			stage.addChild(text1);
+			stage.addChild(butt2);
+			stage.addChild(text2);
+			stage.addChild(butt3);
+			stage.addChild(text3);
+			stage.addChild(butt4);
+			stage.addChild(text4);
+			createjs.Ticker.addEventListener("tick", draw);
+	
+
+			
+			img = new Image();
+			img.src = 'Dsc.png';
+			    var data = {
+			        framerate: 10,
+			        images: [img],
+			        frames: {width:72, height:100, regX:32, regY:32},
+			        animations: {}
+			    }
+			 	//Рисунки карт
+			 	for (var i=0; i<52; i++){
+			 		data.animations["card"+i]=i;
+			 		card.statuss[i]=i;
+			 	}
+			 	//Создаем рубашку
+			 	data.animations["back"]=57;
+			//Создаем карты
+			img.onload = function(event) {
+
+			    var spritesheet = new createjs.SpriteSheet(data);
+
+			    opencard = getRandomcard();
+				//alert(opencard);
+				card.typer[opencard] = new createjs.Sprite(spritesheet, "card"+opencard)
+				card.typer[opencard].setTransform(570,215,1,1,90);
+				stage.addChild(card.typer[opencard])
+			    
+			    stage.update()
+
+			    for (var i=0; i<52;i++){
+			    	if (i==opencard) {
+			    		
+			    		continue;
+			    	};
+			    	card.typer[i]= new createjs.Sprite(spritesheet, "back");
+					stage.addChild(card.typer[i])
+					card.typer[i].x = 600;
+					card.typer[i].y = 200;
+					stage.update();
+			    }
+
+				
+			}
+
+			butt1.addEventListener("click", function(event) { 	
+
+				
+					for (var i=0; i<5;i++){
+						if (card.statuss.length == 0 && globalkey==1 && superglobalkey1==0){
+							finishFirst=i;
+							superglobalkey1=1;
+						}
+						if (card.statuss.length == 0 && globalkey==0) {
+							card.statuss.splice(opencard,1,opencard);
+							//alert("1asd");
+
+							globalkey = 1;
+						};
+
+						if (first_side[i]==0 && card.statuss.length>0) {
+							first_side[i]=1;
+							//alert(first_side[i])
+							fC.card[i]=getRandomcard();
+							//alert(fC.card[i])		
+							card.typer[fC.card[i]].rotation = 0;
+							createjs.Tween.get(card.typer[fC.card[i]],{loop:false})
+								.to({x:50+(100*i), y:350}, 400)
+							card.typer[fC.card[i]].gotoAndPlay("card"+fC.card[i])
+						};	
+						if (card.statuss.length == 0 && globalkey==0) {
+							card.statuss.splice(opencard,1,opencard);
+							//alert("a2sd");
+
+							globalkey = 1;
+						};
+						if (card.statuss.length == 0 && globalkey==1 && superglobalkey2==0){
+							finishSecond = i;
+							superglobalkey2=1
+						}
+						if (second_side[i]==0 && card.statuss.length>0){
+							second_side[i]=1;
+							sC.card[i]=getRandomcard();
+							card.typer[sC.card[i]].rotation = 0;
+							card.typer[sC.card[i]].gotoAndPlay("back")
+							createjs.Tween.get(card.typer[sC.card[i]])
+								.to({x:50+(100*i), y:50}, 400)
+						}
+					//console.log(fC.card+"         "+sC.card);
+
+				}								
+			})
+
+			butt2.addEventListener("click", function(event) {
+				var key=0;
+				createjs.Tween.get(card.typer[fC.card[0]])
+					.to({x:50, y:200}, 400)
+				card.typer[fC.card[0]].gotoAndPlay("back")
+
+				for (var i=0; i<4; i++){
+					var j=i+1;
+					if (card.statuss.length==0 && j==finishFirst){
+						break;
+					}
+						fC.card[i]=fC.card[j];	
+					createjs.Tween.get(card.typer[fC.card[j]])
+						.to({x:50+(100*i)}, 400);
+					if (key==0){
+						for (var k=0;k<5;k++){
+							if (first_side[4-k]==1){
+								first_side[4-k]=0;
+								//alert(4-k+" "+first_side[4-k])
+								key=1;
+								break;
+							}
+						}	
+					}
+					
+				}
+				//console.log(fC.card+"         "+sC.card);
+			})
+			butt3.addEventListener("click", function(event) {
+				var key=0;
+				createjs.Tween.get(card.typer[sC.card[0]])
+					.to({x:50, y:200}, 400)
+				for (var i=0; i<4; i++){
+					var j=i+1;
+					if (card.statuss.length==0 && j==finishSecond){
+						break;
+					}
+					sC.card[i]=sC.card[j];	
+					createjs.Tween.get(card.typer[sC.card[j]])
+						.to({x:50+(100*i)}, 400);
+					if (key==0){
+						for (var k=0;k<5;k++){
+							if (second_side[4-k]==1){
+								second_side[4-k]=0;
+								key=1;
+								break;
+							}
+						}	
+					}
+					
+				}
+			})
+			// button "Reset" возвращаем все переменные в начальное состояние
+			butt4.addEventListener("click", function(event) {
+				for (var i=0; i<52;i++){
+					card.typer[i].x = 600;
+					card.typer[i].y = 200;
+					card.typer[i].rotation = 0;
+					card.typer[i].gotoAndPlay("back");
+					first_side = [0,0,0,0,0];
+					second_side = [0,0,0,0,0];
+					fC.card = [null,null,null,null,null];
+					sC.card = [null,null,null,null,null];
+					card.statuss[i]=i;
+					stage.update();
+			    }
+			    globalkey = 0;
+			    superglobalkey2=0;
+			    superglobalkey1=0;
+			    finishFirst=null;
+			    finishSecond=null;
+			    opencard = getRandomcard();
+				//alert(opencard);
+				card.typer[opencard].setTransform(570,215,1,1,90);
+				card.typer[opencard].gotoAndPlay('card'+opencard)
+
+			})
+			
+			function draw(){
+				stage.update();
+			}
+		}
+	</script>
+	
 </body>
 </html>
